@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.10.1](https://github.com/SeanLF/claude-code-subagent-harnesses/compare/via-v0.10.0...via-v0.10.1) (2026-11-22)
+
+
+### Bug Fixes
+
+* **via:** a long Codex question shows whole, not cut at its field's title ([7f36eee](https://github.com/SeanLF/claude-code-subagent-harnesses/commit/7f36eeef664e8b612ec6a375ea6bf3621d79a507))
+* **via:** Codex runs on codex-acp 2.9.0, the relay on ACP SDK 2.9.1 ([4ae5300](https://github.com/SeanLF/claude-code-subagent-harnesses/commit/4ae5300be03a8a1632ea0f7117615d0d749279d9))
+
 ## [0.10.0](https://github.com/SeanLF/claude-code-subagent-harnesses/compare/via-v0.9.0...via-v0.10.0) (2026-11-17)
 
 
