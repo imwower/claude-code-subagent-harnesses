@@ -100,6 +100,38 @@ function arrange(
 
 const NEW = ['agy', '--output-format', 'stream-json', '--disable-slash-commands', '--sandbox']
 
+test('bypass mode drops the sandbox for --dangerously-skip-permissions, which approves every tool', async ($, on) => {
+  const spawns: Spawn[] = []
+  arrange(on, spawns, { stdout: RUN, record: { mode: 'bypassPermissions' } })
+  await $.turn.start({ turnId: 't1', agentId: 'a1', text: 'go' })
+  await run($)
+  expect(spawns[0]?.argv).toEqual(['agy', '--output-format', 'stream-json', '--disable-slash-commands', '--dangerously-skip-permissions'])
+})
+
+test("an acceptEdits mode names agy's accept-edits mode, sandbox still on", async ($, on) => {
+  const spawns: Spawn[] = []
+  arrange(on, spawns, { stdout: RUN, record: { mode: 'acceptEdits' } })
+  await $.turn.start({ turnId: 't1', agentId: 'a1', text: 'go' })
+  await run($)
+  expect(spawns[0]?.argv).toEqual([...NEW, '--mode', 'accept-edits'])
+})
+
+test("an auto mode names agy's auto mode, sandbox still on", async ($, on) => {
+  const spawns: Spawn[] = []
+  arrange(on, spawns, { stdout: RUN, record: { mode: 'auto' } })
+  await $.turn.start({ turnId: 't1', agentId: 'a1', text: 'go' })
+  await run($)
+  expect(spawns[0]?.argv).toEqual([...NEW, '--mode', 'auto'])
+})
+
+test("dontAsk mode keeps the sandbox and passes no --mode, as the default mode's run above does", async ($, on) => {
+  const spawns: Spawn[] = []
+  arrange(on, spawns, { stdout: RUN, record: { mode: 'dontAsk' } })
+  await $.turn.start({ turnId: 't1', agentId: 'a1', text: 'go' })
+  await run($)
+  expect(spawns[0]?.argv).toEqual(NEW)
+})
+
 test('an agy agent sends its prompt on stdin and signs with the model agy says the flags select', async ($, on) => {
   const spawns: Spawn[] = []
   const probes: string[][] = []
